@@ -15,13 +15,15 @@ import java.util.Collections;
 import java.util.Enumeration;
 
 public class Main extends Application {
-    public PrintWriter outGlobal = new PrintWriter(System.out);
+    public static PrintWriter outGlobal = new PrintWriter(System.out);
+    public static String clientOrServer = null;
 
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        //GameMenu.showGameMenu();
         GridPane gridPane = new GridPane();
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Connect");
         Scene scene = new Scene(gridPane, 300, 275);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -57,10 +59,10 @@ public class Main extends Application {
         Button clear = new Button("clear");
         HBox hBox = new HBox(25, send, clear);
 
-
-
-
         checkBox.selectedProperty().bindBidirectional(textField2.disableProperty());
+
+        textField.setText("3255");
+        textField2.setText("172.16.80.92");
 
 
         button.setOnAction(event -> {
@@ -75,6 +77,9 @@ public class Main extends Application {
                     gridPane.add(hBox, 0, 5);
                     sp.setPrefHeight(400);
                     sp.setPrefWidth(250);
+                    GameMenu.showGameMenu();//The server gets to choose the game
+                    primaryStage.setTitle("Chat");
+                    clientOrServer = "server";
                     primaryStage.setHeight(475);
                     scene.setOnKeyPressed(event2 -> {
                         switch (event2.getCode()){
@@ -101,6 +106,8 @@ public class Main extends Application {
                         gridPane.add(hBox, 0, 5);
                         sp.setPrefHeight(400);
                         sp.setPrefWidth(250);
+                        primaryStage.setTitle("Chat");
+                        clientOrServer = "client";
                         primaryStage.setHeight(475);
                         scene.setOnKeyPressed(event2 -> {
                             switch (event2.getCode()){
